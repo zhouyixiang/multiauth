@@ -29,5 +29,10 @@ class MultiManager {
 			return $this->providers[$name];
 		}
 	}
-	
+
+	public function extend($driver, \Closure $callback) {
+		foreach($this->providers as $name => $authManager) {
+			$authManager->extend($driver, $callback);
+		}
+	}
 }

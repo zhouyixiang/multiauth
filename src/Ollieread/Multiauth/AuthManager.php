@@ -3,6 +3,7 @@
 use Illuminate\Auth\AuthManager as OriginalAuthManager;
 use Illuminate\Auth\DatabaseUserProvider;
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Auth\Guard;
 
 class AuthManager extends OriginalAuthManager {
 	
