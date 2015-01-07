@@ -1,6 +1,8 @@
 <?php namespace Ollieread\Multiauth;
 
+use Doctrine\ORM\EntityManager;
 use Illuminate\Foundation\Application;
+use Mitch\LaravelDoctrine\DoctrineUserProvider;
 
 class MultiManager {
 	
