@@ -30,9 +30,30 @@ class MultiManager {
 		}
 	}
 
-	public function extend($driver, \Closure $callback) {
-		foreach($this->providers as $name => $authManager) {
-			$authManager->extend($driver, $callback);
+	/**
+	 * Register a custom driver creator Closure.
+	 *
+	 * @param  string    $driver
+	 * @param  \Closure  $callback
+	 * @return $this
+	 */
+	public function extend($driver, \Closure $callback)
+	{
+		if ($driver === 'doctrine') {
+			foreach($this->providers as $name => $authManager) {
+				$config = $this->config[$name];
+				$authManager->extend($driver, function ($app) use ($config) {
+					return new DoctrineUserProvider(
+						$app['Illuminate\Hashing\HasherInterface'],
+						$app[EntityManager::class],
+						$config['model']
+					);
+				});
+			}
+		} else {
+			foreach($this->providers as $name => $authManager) {
+				$authManager->extend($driver, $callback);
+			}
 		}
 	}
 }

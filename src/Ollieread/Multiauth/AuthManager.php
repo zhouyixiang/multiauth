@@ -3,7 +3,7 @@
 use Illuminate\Auth\AuthManager as OriginalAuthManager;
 use Illuminate\Auth\DatabaseUserProvider;
 use Illuminate\Auth\EloquentUserProvider;
-use Illuminate\Auth\Guard;
+use Illuminate\Support\Manager;
 
 class AuthManager extends OriginalAuthManager {
 	
@@ -27,7 +27,7 @@ class AuthManager extends OriginalAuthManager {
 	}
 	
 	protected function callCustomCreator($driver) {
-		$custom = parent::callCustomCreator($driver);
+		$custom = Manager::callCustomCreator($driver);
 
 		if ($custom instanceof Guard) return $custom;
 
